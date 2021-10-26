@@ -62,3 +62,37 @@ create table Special_order(
   foreign key(rname, pname) references Orders(rname, pname) on delete cascade,
   foreign key(dcode) references Discount(dcode) on delete no action
 );
+create table Customer(
+  cname char(20),
+  email char(20),
+  username char(20),
+  c_phone char(20),
+  c_address char(20),
+  primary key(username, c_phone)
+);
+create table submits(
+  username char(20),
+  c_phone char(20),
+  rname char(20),
+  pname char(20),
+  primary key(rname, pname, username, c_phone),
+  foreign key(rname, pname) references Orders(rname, pname),
+  foreign key(username, c_phone) references Customer(username, c_phone)
+);
+create table Comments(
+  rname char(20),
+  fname char(20),
+  text char(20),
+  score char(20),
+  primary key(rname, fname),
+  foreign key(rname, fname) references Food_serve(rname, fname) on delete cascade
+);
+create table Adds(
+  rname char(20),
+  fname char(20),
+  username char(20),
+  c_phone char(20),
+  primary key(rname, fname, cname),
+  foreign key(rname, fname) references Comments(rname, fname) on delete no action,
+  foreign key(username, c_phone) references Customer(username, c_phone) on delete no action
+);
